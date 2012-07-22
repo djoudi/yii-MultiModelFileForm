@@ -2,7 +2,15 @@
 
 This example will use Band as the parent model and BandImage as the child model.
 
-### Step 1: Make sure that the child model contains a "weight" attribute which will be used to order the child models
+### Step 1: Make sure that the child model contains:
+* A "weight" attribute which will be used to order the child models
+* A "file" relation which contains a "BELONGS_TO" relationship to the "files" table:
+```php
+<?php
+return array(
+	'file' => array(self::BELONGS_TO, 'File', 'image_id'),
+);
+```
 
 ### Step 2: Modify the parent model "create" controller to include the child model and MultiModelForm validate() and save() method calls
 
