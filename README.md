@@ -40,7 +40,7 @@ public function actionCreate(){
 	);
 	// If $_POST values are present
 	if(isset($_POST['Band'])){
-		$model->attributes=$_POST['Band'];
+		$model->attributes = $_POST['Band'];
 		// First check if the child models validate, then check if the parent model saves (neither can fail validation)
 		if(MultiModelForm::validate($projectItem, $validatedItems, $deleteItems, $fileAttributes) && $model->save()){
 			// Create an array to hold the foreign key values of the child model
@@ -53,11 +53,11 @@ public function actionCreate(){
 		}       
 	}
 	// Send variables to the view
-	$this->render('create',array(
-		'model'=>$model,
-		'bandImage'=>$bandImage,
-		'bandImages'=>$bandImages,
-		'validatedImages'=>$validatedImages,
+	$this->render('create', array(
+		'model' => $model,
+		'bandImage' => $bandImage,
+		'bandImages' => $bandImages,
+		'validatedImages' => $validatedImages,
 	));
 }
 ```
@@ -65,7 +65,7 @@ public function actionCreate(){
 ### Step 3: Modify the parent model "create" view to pass the variables to the "_form", which is rendered using a "partialRender"
 ```php
 <?php echo $this->renderPartial('_form', array(
-	'model'=>$model,
+	'model' => $model,
 	'bandImage' => $bandImage,
 	'bandImages' => $bandImages,
 	'validatedItems' => $validatedItems,
@@ -80,10 +80,10 @@ First, create a parent model method that returns a form config object, used to d
 <?php
 public function getBandImageForm(){
 	return array(
-		'elements'=>array(
+		'elements' => array(
 			// Create form elements for each child model attribute
-			'image_id'=>array(
-				'type'=>'file',
+			'image_id' => array(
+				'type' => 'file',
 			),
 	));
 }
@@ -93,7 +93,7 @@ Second, add the widget call to the parent model "_form.php" file
 
 ```php
 <?php
-$this->widget('ext.multimodelform.MultiModelForm',array(
+$this->widget('ext.multimodelform.MultiModelForm', array(
 		'id' => 'project-images',
 		'formConfig' => $model->getBandImageForm(),
 		'removeText' => 'Remove item',
@@ -135,9 +135,9 @@ public function actionUpdate($id){
 	);
 	// If $_POST values are present
 	if(isset($_POST['Band'])){
-		$model->attributes=$_POST['Band'];
+		$model->attributes = $_POST['Band'];
 		// Create an array to hold the foreign key values of the child model
-		$masterValues = array('band_id'=>$model->id);
+		$masterValues = array('band_id' => $model->id);
 		// Check if both the child and parent models validate and save
 		if(MultiModelForm::save($bandImage, $validatedImages, $deleteImages, $masterValues, $fileAttributes) && $model->save()){
 			// Do something on success...
@@ -146,11 +146,11 @@ public function actionUpdate($id){
 		}
 	}
 	// Send variables to the view
-	$this->render('update',array(
-		'model'=>$model,
-		'bandImage'=>$bandImage,
-		'bandImages'=>$bandImages,
-		'validatedImages'=>$validatedImages,
+	$this->render('update', array(
+		'model' => $model,
+		'bandImage' => $bandImage,
+		'bandImages' => $bandImages,
+		'validatedImages' => $validatedImages,
 	));
 }
 ```
@@ -158,7 +158,7 @@ public function actionUpdate($id){
 ### Step 6: Modify the parent model "update" view to pass the variables to the "_form", which is rendered using a "partialRender"
 ```php
 <?php echo $this->renderPartial('_form', array(
-	'model'=>$model,
+	'model' => $model,
 	'bandImage' => $bandImage,
 	'bandImages' => $bandImages,
 	'validatedItems' => $validatedItems,
